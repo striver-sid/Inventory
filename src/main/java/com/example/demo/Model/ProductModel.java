@@ -33,7 +33,7 @@ public class ProductModel {
 
     @Column
     @Size(max = 500)
-    private String description;
+    private String description; 
 
     @Positive
     private Double price;
