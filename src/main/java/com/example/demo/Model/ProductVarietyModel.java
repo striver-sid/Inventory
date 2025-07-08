@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name="ProductVariety")
+@Builder
 public class ProductVarietyModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +38,6 @@ public class ProductVarietyModel {
     @Column(nullable = false)
     @Builder.Default
     private Boolean isDefault = false;
-
 
     @CreationTimestamp
     private LocalDateTime createdAt;

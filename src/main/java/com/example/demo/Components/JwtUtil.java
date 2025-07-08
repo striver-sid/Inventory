@@ -1,5 +1,7 @@
 package com.example.demo.Components;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -35,8 +37,23 @@ public class JwtUtil {
                 .signWith(SECRET_KEY)
                 .compact();
     }
-
-
-
+    public static boolean isTokenValid(String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(SECRET_KEY)
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        } catch (JwtException ex) {
+            return false; // Invalid, expired, malformed, etc.
+        }
+    }
+    public static Claims extractAllClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(SECRET_KEY) // Your secret key
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
 
 }

@@ -12,6 +12,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -53,4 +54,5 @@ public class UserRegisterDTO {
 
     @Size(min=2,max=50,message="tenant length must be between 2 to 50 characters")
     private String tenantName;
+
 }

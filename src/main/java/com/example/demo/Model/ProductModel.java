@@ -1,6 +1,7 @@
 package com.example.demo.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
@@ -13,6 +14,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,6 +22,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
 public class ProductModel {
 
     @Id
@@ -33,7 +38,7 @@ public class ProductModel {
 
     @Column
     @Size(max = 500)
-    private String description; 
+    private String description;
 
     @Positive
     private Double price;
@@ -48,9 +53,9 @@ public class ProductModel {
     private LocalDateTime updatedAt;
 
     @Builder.Default
-    @OneToMany(mappedBy = "variety",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "product",cascade=CascadeType.ALL)
     @JsonIgnore
-    private List<ProductVarietyModel> productVariety;
+    private List<ProductVarietyModel> productVariety=new ArrayList<>();
 
     @ManyToOne(fetch=FetchType.LAZY,optional=false )
     @JoinColumn(name="tenantId",nullable=false)
